@@ -19,7 +19,7 @@ namespace Bookstore.Controllers
 
             public  async Task<IEnumerable<Book>> Handle(Query request, CancellationToken cancellationToken) 
             { 
-            return await _db.Books.ToListAsync(cancellationToken);
+                return await _db.Books.ToListAsync(cancellationToken);
             }
         }
     }

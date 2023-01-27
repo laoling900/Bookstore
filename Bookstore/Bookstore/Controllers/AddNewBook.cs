@@ -8,18 +8,19 @@ namespace Bookstore.Controllers
     {
         public class Command : IRequest<string> 
         { 
-            public string Id { get; set; }  
-            public string Name { get; set; }    
+            public string? Id { get; set; }  
+            public string? Name { get; set; }    
 
         }
+
 
         public class CommandHandler : IRequestHandler<Command, string>
         {
             private readonly BookContext _db;
-            public CommandHandler(BookContext db)
-            {
-                this._db = db;
-            }
+            public CommandHandler(BookContext db) => this._db = db;
+
+
+
 
             public async Task<string> Handle(Command request, CancellationToken cancellationToken)
             {

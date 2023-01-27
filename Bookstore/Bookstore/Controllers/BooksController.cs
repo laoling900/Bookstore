@@ -2,8 +2,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
 namespace Bookstore.Controllers
+    
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -12,10 +14,7 @@ namespace Bookstore.Controllers
     {
         private readonly IMediator _mediator;
 
-        public BooksController(IMediator _mediator)
-        {
-            _mediator = _mediator;
-        }
+        public BooksController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
         public async Task<IEnumerable<Book>> GetBooks() => await _mediator.Send(new GetBooks.Query());
