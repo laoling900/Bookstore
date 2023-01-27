@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Bookstore.Models;
 using Microsoft.EntityFrameworkCore;
+using Bookstore.Data;
 
 namespace Bookstore.Controllers
 {

@@ -1,11 +1,11 @@
 using MediatR;
-using Bookstore.Models;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using Bookstore.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());   
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<BookContext>(options => options.UseSqlite("Data source=books.db"));
-
+builder.Services.AddDbContext<BookContext>(options => options.UseSqlite("Data source=bookstoredata.db"));
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -28,6 +27,24 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "bookstoreapi v1"));
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        SeedData.Initialize(services);
+
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the DB.");
+
+    }
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

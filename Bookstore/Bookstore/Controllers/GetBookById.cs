@@ -1,4 +1,5 @@
-﻿using Bookstore.Models;
+﻿using Bookstore.Data;
+using Bookstore.Models;
 using MediatR;
 
 namespace Bookstore.Controllers
