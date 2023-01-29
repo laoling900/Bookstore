@@ -14,14 +14,26 @@
     }
 
     //Make a new reservation using API
-    async function makeReservation(reservation) {
+async function makeReservation(id, email, contact) {
+    let reservation = {
+        id: id,
+        email: email,
+        contactNumber: contact,
+    };
 
-        const response = await fetch('/api/Reservations', {
-            method: 'POST',
-            body: JSON.stringify(reservation)
+    console.log(reservation);
+    console.log(JSON.stringify(reservation));
+    const response = await fetch('/api/Reservation', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(reservation),
         });
 
-        const data = await response.json();
+    const data = await response;
+    console.log(data);
         return data;
 
     }

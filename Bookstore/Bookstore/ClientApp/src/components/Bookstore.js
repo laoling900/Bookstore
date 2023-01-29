@@ -1,6 +1,7 @@
-﻿import React, { useState, useEffect, Component } from 'react';
-import { Col, Row, Container, Button, Card, Table } from "react-bootstrap";
-import { findBooks } from "../data/repository";
+﻿import React, { useState, useEffect } from 'react';
+import { Col, Row, Container, Button, Card, Table, Modal, Form} from "react-bootstrap";
+import { findBooks, makeReservation } from "../data/repository";
+
 
 
 function Bookstore() {
@@ -8,9 +9,24 @@ function Bookstore() {
     const [isLoading, setIsLoading] = useState("");
     const [bookList, setBookList] = useState([]);
     const [filteredData, setFilteredData] = useState(null);
-    const [seletedBook, setSelectedBook] = useState("");
+    const [selectedBook, setSelectedBook] = useState("");
     const [searchField, setSearchField] = useState("");
+    const [showReservation, setShowNewReservation] = useState(false);
+    const [email, setEmail] = useState("");
+    const [contact, setContact] = useState("");
 
+    //show the reservation Modal
+    const handleShow = (book) => {
+        setShowNewReservation(true)
+        setSelectedBook(book);
+        console.log(selectedBook);
+    };
+    //close the Reservation Modal
+    const handleClose = () => {
+        setShowNewReservation(false);
+        setSelectedBook("");
+        console.log(selectedBook);
+    }
 
     //load all books
     useEffect(() => {
@@ -36,6 +52,7 @@ function Bookstore() {
 
     //handle Search function
     const handleSearch = (event) => {
+
         const keyword = event.target.value.toLowerCase();
         if (keyword === "") {
             setFilteredData(bookList);
@@ -53,8 +70,22 @@ function Bookstore() {
     };
 
     //Make new Reservation
-    const handleReserveBook = () => {
-        // ensure the select book ID
+    const handleReserveBook = (event) => {
+        //makesure email and contact number correct format
+        console.log(selectedBook.id);
+        console.log(email);
+        console.log(contact);
+        let reservation
+        //Create the Reservation
+        reservation = {
+            Id: selectedBook.id,
+            Email: email,
+            ContactNumber: contact,
+        };
+        console.log(reservation);
+        //make the reservation
+        makeReservation(selectedBook.id,email, contact);
+
     }
 
 
@@ -93,7 +124,7 @@ function Bookstore() {
                                 <td>{book.name}</td>
                                 <td>{book.id}</td>
                                 <td>
-                                    <Button onClick={() => handleReserveBook(book.id)}>
+                                    <Button onClick={() => handleShow(book)}>
                                         Make Reservation
                                     </Button>
                                 </td>
@@ -103,9 +134,60 @@ function Bookstore() {
                 </Table>
 
             </Row>
-            
+            <>
+            <Modal show={showReservation} onHide={handleClose} backdrop="static">
+                <Modal.Header closeButton>
+                    <Modal.Title>Make a Reservation</Modal.Title>
+                </Modal.Header>
+                    <Modal.Body>
+                        <Row>
+                            <Col>
+                                <Form>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Email address: </Form.Label>
+                                        <Form.Control
+                                            type="email"
+                                            name="user_email"
+                                            placeholder="Enter email"
+                                            value={email}
+                                            onChange={(event) => {
+                                                setEmail(event.target.value);
+                                            }}
+                                        />
+                                    </Form.Group>
+                                    <br></br>
+                                    <Form.Group controlId="formBasicContact">
+                                        <Form.Label>Contact Number: </Form.Label>
+                                        <Form.Control
+                                            type="contact"
+                                            name="contact"
+                                            placeholder="Enter Contact Number"
+                                            value={contact}
+                                            onChange={(event) => {
+                                                setContact(event.target.value);
+                                            }}
+                                        />
+                                    </Form.Group>
+                                </Form>
+                            </Col>
+                        </Row>
+                  
+                    
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        CANCEL
+                    </Button>
+                    <Button
+                        variant="primary"
+                        onClick={() => handleReserveBook()}
+                    >
+                        CONFIRM
+                    </Button>
 
-
+                </Modal.Footer>
+            </Modal>
+            </>
         </Container>
         
         
@@ -118,33 +200,3 @@ export default Bookstore ;
 
 
 
-
-//export class Bookstore extends Component {
-//  static displayName = Bookstore.name;
-
-//  constructor(props) {
-//    super(props);
-//    this.state = { currentCount: 0 };
-//    this.incrementCounter = this.incrementCounter.bind(this);
-//  }
-
-//  incrementCounter() {
-//    this.setState({
-//      currentCount: this.state.currentCount + 1
-//    });
-//  }
-
-//  render() {
-//    return (
-//      <div>
-//            <h1>Bookstore</h1>
-
-//        <p>This is a simple example of a React component.</p>
-
-//        <p aria-live="polite">Current count: <strong>{this.state.currentCount}</strong></p>
-
-//        <button className="btn btn-primary" onClick={this.incrementCounter}>Increment</button>
-//      </div>
-//    );
-//  }
-//}
