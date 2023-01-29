@@ -8,7 +8,7 @@ const context = [
     "/swagger",
     "/weatherforecast",
     "/api/Books",
-    "/api/Reservations",
+    "/api/Reservation",
 ];
 
 module.exports = function(app) {

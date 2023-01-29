@@ -1,13 +1,13 @@
 ﻿using Bookstore.Data;
 using Bookstore.Models;
 using MediatR;
-
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Bookstore.Controllers
 {
     public class AddNewReservation
     {
-        public class Command : IRequest<string> 
+        public class Command : IRequest<Reservation> 
         {
             public string? Id { get; set; }
             public string? Email { get; set; }
@@ -15,7 +15,7 @@ namespace Bookstore.Controllers
         }
 
 
-        public class CommandHandler : IRequestHandler<Command, string>
+        public class CommandHandler : IRequestHandler<Command, Reservation>
         {
             private readonly BookContext _db;
 
@@ -23,10 +23,11 @@ namespace Bookstore.Controllers
 
 
 
-            public async Task<string> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Reservation> Handle(Command request, CancellationToken cancellationToken)
             {
                 var entity = new Reservation
-                {   
+                {
+                    
                     Id = request.Id,
                     Email = request.Email,
                     ContactNumber = request.ContactNumber,
@@ -35,7 +36,7 @@ namespace Bookstore.Controllers
                 await _db.Reservations.AddAsync(entity,cancellationToken);
                 await _db.SaveChangesAsync();
 
-                return entity.Id;
+                return entity;
             }
 
         }

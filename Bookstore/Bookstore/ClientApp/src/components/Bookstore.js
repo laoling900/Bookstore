@@ -54,7 +54,7 @@ function Bookstore() {
 
     //Make new Reservation
     const handleReserveBook = () => {
-
+        // ensure the select book ID
     }
 
 
