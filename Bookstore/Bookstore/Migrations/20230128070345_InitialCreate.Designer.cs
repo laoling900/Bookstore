@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookstore.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20230127120554_InitialCreate")]
+    [Migration("20230128070345_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -35,12 +35,12 @@ namespace Bookstore.Migrations
 
             modelBuilder.Entity("Bookstore.Models.Reservation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("ContactNumber")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()

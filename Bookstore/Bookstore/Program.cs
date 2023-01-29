@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Bookstore.Data;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<BookContext>(options => options.UseSqlite("Data so
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookstoreApi", Version = "v1" });
+    c.CustomSchemaIds(s => s.FullName?.Replace("+", "."));
+    //c.CustomSchemaIds(type => type.ToString());
 });
 
 

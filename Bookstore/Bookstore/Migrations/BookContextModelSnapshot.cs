@@ -32,12 +32,12 @@ namespace Bookstore.Migrations
 
             modelBuilder.Entity("Bookstore.Models.Reservation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("ContactNumber")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
