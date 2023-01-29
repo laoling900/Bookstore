@@ -4,7 +4,7 @@ import { findBooks, makeReservation, findReservationByBook } from "../data/repos
 import { useNavigate } from "react-router-dom";
 
 
-function Bookstore() {
+function Bookstore(props) {
 
     const [isLoading, setIsLoading] = useState("");
     const [bookList, setBookList] = useState([]);
