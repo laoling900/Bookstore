@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom'
 
 function Home() {
 
@@ -7,19 +7,21 @@ function Home() {
     return (
         <div>
             <h1>BookStore coding test</h1>
-            <p>Here are all books on the system, select a book to make reservation</p>
+            <p>This is a very small coding test using C#, MVC, CQRS, HTTPS, React to Implement an online bookstore</p>
+            <br></br>
+            
             <ul>
-                <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-                <li><a href='https://facebook.github.io/react/'>React</a> for client-side code</li>
-                <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
+                <li>Backend using C#, Asp.net, Using MediarR to implement CQRS </li>
+                <li>Database using SQLite to ensure a small project can be start up anywhere instead of having to set up a server</li>
+                <li>The front end is a web client written with React and React bootstrap</li>
             </ul>
-            <p>To help you get started, we have also set up:</p>
+            <p>To help you get started:</p>
             <ul>
-                <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-                <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-                <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
+                <li>Using Visual studio start the project with Bookstore.sln</li>
+                <li>Build the Solution</li>
+                <li>start up the project</li>
             </ul>
-            <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
+            
         </div>
 
     );
@@ -27,4 +29,3 @@ function Home() {
 }
  
 export default Home ;
-
