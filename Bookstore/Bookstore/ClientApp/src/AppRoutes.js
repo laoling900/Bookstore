@@ -1,8 +1,11 @@
-import  Bookstore  from "./components/Bookstore";
-import { FetchData } from "./components/FetchData";
-import { Home } from "./components/Home";
+import Bookstore from "./components/Bookstore";
+import ConfirmPage from "./components/ConfirmPage";
+import Home  from "./components/Home";
+
 
 const AppRoutes = [
+
+
   {
     index: true,
     element: <Home />
@@ -12,9 +15,10 @@ const AppRoutes = [
       element: <Bookstore />
   },
   {
-    path: '/fetch-data',
-    element: <FetchData />
-  }
+      path: '/ConfirmPage',
+      element: <ConfirmPage />
+   }
+
 ];
 
 export default AppRoutes;

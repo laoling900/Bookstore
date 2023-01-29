@@ -10,6 +10,7 @@ namespace Bookstore.Models
         public Guid ReservationNo { get; set; }
 
         [ForeignKey("Book")]
+        [Required]
         public string Id { get; set; }
         public virtual Book? Book { get; set; }
 

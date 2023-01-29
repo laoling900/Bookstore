@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { Col, Row, Container, Button, Card, Table, Modal, Form} from "react-bootstrap";
-import { findBooks, makeReservation } from "../data/repository";
-
+import { findBooks, makeReservation, findReservationByBook } from "../data/repository";
+import { useNavigate } from "react-router-dom";
 
 
 function Bookstore() {
@@ -14,18 +14,17 @@ function Bookstore() {
     const [showReservation, setShowNewReservation] = useState(false);
     const [email, setEmail] = useState("");
     const [contact, setContact] = useState("");
+    const navigate = useNavigate();
 
     //show the reservation Modal
     const handleShow = (book) => {
         setShowNewReservation(true)
         setSelectedBook(book);
-        console.log(selectedBook);
     };
     //close the Reservation Modal
     const handleClose = () => {
         setShowNewReservation(false);
         setSelectedBook("");
-        console.log(selectedBook);
     }
 
     //load all books
@@ -72,20 +71,14 @@ function Bookstore() {
     //Make new Reservation
     const handleReserveBook = (event) => {
         //makesure email and contact number correct format
-        console.log(selectedBook.id);
-        console.log(email);
-        console.log(contact);
-        let reservation
-        //Create the Reservation
-        reservation = {
-            Id: selectedBook.id,
-            Email: email,
-            ContactNumber: contact,
-        };
-        console.log(reservation);
-        //make the reservation
-        makeReservation(selectedBook.id,email, contact);
 
+
+        //make the reservation
+        const reservation =  makeReservation(selectedBook.id,email, contact);
+
+
+        //reservation confirmation
+        navigate("/ConfirmPage", { state: { book: selectedBook }});
     }
 
 

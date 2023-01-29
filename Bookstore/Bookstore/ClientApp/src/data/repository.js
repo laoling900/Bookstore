@@ -6,12 +6,8 @@
         return data;
     }
 
-    
-    async function findWeather() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        return data;
-    }
+
+
 
     //Make a new reservation using API
 async function makeReservation(id, email, contact) {
@@ -21,8 +17,6 @@ async function makeReservation(id, email, contact) {
         contactNumber: contact,
     };
 
-    console.log(reservation);
-    console.log(JSON.stringify(reservation));
     const response = await fetch('/api/Reservation', {
         method: 'POST',
         headers: {
@@ -32,15 +26,24 @@ async function makeReservation(id, email, contact) {
         body: JSON.stringify(reservation),
         });
 
-    const data = await response;
-    console.log(data);
+        const data = await response.json();
         return data;
+    }
+
+    async function findReservationByBook(id) {
+        const response = await fetch(`/api/Reservation/${id}`);
+        if (response) {
+            const data = await response.json();
+            return data;
+        } else {
+            return null;
+        }
 
     }
 
 
     export {
-        findBooks, findWeather, makeReservation
+    findBooks, makeReservation, findReservationByBook
 
         }
 
