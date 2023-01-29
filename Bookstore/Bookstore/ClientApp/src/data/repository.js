@@ -32,6 +32,8 @@ async function makeReservation(id, email, contact) {
 
     async function findReservationByBook(id) {
         const response = await fetch(`/api/Reservation/${id}`);
+
+        console.log(response);
         if (response) {
             const data = await response.json();
             return data;
